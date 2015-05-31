@@ -17,8 +17,8 @@ public class SmsReceiver extends BroadcastReceiver {
     private String TAG = SmsReceiver.class.getSimpleName();
     public static String number = "";
     public static String sms = "";
-    public static String reply = "The person you are trying to reach is currently driving," +
-            "They will get back to you ass soon as possible.";
+    //public static String reply = "The person you are trying to reach is currently driving," +
+          //  "They will get back to you ass soon as possible.";
 
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
@@ -39,7 +39,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent("SMS_Sent"), 0);
                 SmsManager sm = SmsManager.getDefault();
 
-                sm.sendTextMessage(number, null, reply, pi, null);
+                sm.sendTextMessage(number, null, MainActivity.userText.toString(), pi, null);
 
         }
 

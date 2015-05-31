@@ -8,27 +8,24 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-import android.hardware.TriggerEvent;
-import android.hardware.TriggerEventListener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
+import android.widget.EditText;
 
 @TargetApi(18)
 public class MainActivity extends Activity implements LocationListener{
 
     //private SensorManager mSensorManager;
     public static float speed = 0;
+
+    public static CharSequence userText = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,5 +117,9 @@ public class MainActivity extends Activity implements LocationListener{
         }else{
             manager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
+    }
+    public void onSetClick(){
+        final EditText textbox = (EditText) findViewById(R.id.smsResponse);
+        userText = textbox.getText();
     }
 }
