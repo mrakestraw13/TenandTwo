@@ -15,6 +15,7 @@ import android.hardware.TriggerEventListener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -27,18 +28,18 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements LocationListener{
 
     //private SensorManager mSensorManager;
-    private float speed = 0;
+    public static float speed = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
        LocationManager mSensorManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        mSensorManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,this);
+        mSensorManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
         //mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION);
 
         this.onLocationChanged(null);
-        checkSpeed(speed);
+
     }
 
 
@@ -75,7 +76,7 @@ public class MainActivity extends Activity implements LocationListener{
             float nCurrentSpeed = location.getSpeed();
             txt.setText(nCurrentSpeed + " m/s");
             speed = nCurrentSpeed;
-
+            checkSpeed(nCurrentSpeed);
         }
     }
 
@@ -109,6 +110,15 @@ public class MainActivity extends Activity implements LocationListener{
         notificationManager.notify(0, notification);
     }
     private void checkSpeed(float s){
-        if(s > 20) highSpeedNotification();
+        AudioManager manager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+
+        if(s > 1.0) {
+
+            highSpeedNotification();
+            manager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+
+        }else{
+            manager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        }
     }
 }
