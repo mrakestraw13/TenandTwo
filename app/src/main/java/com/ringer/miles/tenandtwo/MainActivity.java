@@ -16,6 +16,8 @@ import android.support.v4.app.NotificationCompat;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
@@ -36,6 +38,17 @@ public class MainActivity extends Activity implements LocationListener{
         //mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION);
 
         this.onLocationChanged(null);
+
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(
+                new Button.OnClickListener(){
+                    public void onClick(View v){
+                        final EditText textbox = (EditText) findViewById(R.id.smsResponse);
+                        userText = textbox.getText();
+                    }
+                }
+        );
 
     }
 
@@ -118,8 +131,8 @@ public class MainActivity extends Activity implements LocationListener{
             manager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
     }
-    public void onSetClick(){
+    /*public void onSetClick(){
         final EditText textbox = (EditText) findViewById(R.id.smsResponse);
         userText = textbox.getText();
-    }
+    }*/
 }
