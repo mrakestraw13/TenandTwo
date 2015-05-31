@@ -46,6 +46,7 @@ public class MainActivity extends Activity implements LocationListener{
                     public void onClick(View v){
                         final EditText textbox = (EditText) findViewById(R.id.smsResponse);
                         userText = textbox.getText();
+                        textbox.setText("SMS submitted");
                     }
                 }
         );
